@@ -8,8 +8,19 @@ import { db } from "@acme/db/client";
 
 export type AuthInstance = ReturnType<typeof betterAuth>;
 
+const getBaseUrl = () => {
+  const vercelUrl = env.VERCEL_PROJECT_PRODUCTION_URL ?? env.VERCEL_URL;
+
+  if (vercelUrl) return `https://${vercelUrl}`;
+  if (env.BETTER_AUTH_URL) return new URL(env.BETTER_AUTH_URL).origin;
+
+  // eslint-disable-next-line no-restricted-properties
+  return `http://localhost:${process.env.PORT ?? 3000}`;
+};
+
 export const auth = betterAuth({
   appName: "myapp",
+  baseURL: getBaseUrl(),
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
@@ -19,11 +30,11 @@ export const auth = betterAuth({
     discord: {
       clientId: env.AUTH_DISCORD_ID,
       clientSecret: env.AUTH_DISCORD_SECRET,
-      redirectURI: `${new URL(env.BETTER_AUTH_URL).origin}/api/auth/callback/discord`,
+      redirectURI: `${getBaseUrl()}/api/auth/callback/discord`,
     },
   },
   trustedOrigins: [
-    ...[env.BETTER_AUTH_URL].map((url) => new URL(url).origin),
+    getBaseUrl(),
     "myapp://",
   ],
   session: {
