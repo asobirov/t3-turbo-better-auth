@@ -1,7 +1,7 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { headers } from "next/headers";
 
-import { auth } from "@acme/auth/";
+import { auth } from "@acme/auth";
 
 import { protectedProcedure, publicProcedure } from "../trpc";
 
