@@ -11,6 +11,12 @@ const config = withTurborepoManagedCache(
     configPath: "./tailwind.config.ts",
   }),
 );
+
+/**
+ * @see https://www.better-auth.com/docs/integrations/expo#configure-metro-bundler
+ */
+config.resolver.unstable_enablePackageExports = true; 
+
 module.exports = config;
 
 /**

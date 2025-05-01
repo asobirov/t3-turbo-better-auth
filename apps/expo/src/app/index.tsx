@@ -7,7 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { RouterOutputs } from "~/utils/api";
 import { trpc } from "~/utils/api";
-import { useSignIn, useSignOut, useUser } from "~/utils/auth";
+import { authClient, signIn, signOut } from "~/utils/auth-client";
 
 function PostCard(props: {
   post: RouterOutputs["post"]["all"][number];
@@ -99,24 +99,30 @@ function CreatePost() {
 }
 
 function MobileAuth() {
-  const user = useUser();
-  const signIn = useSignIn();
-  const signOut = useSignOut();
+  const { data: session } = authClient.useSession();
 
+  const handleSignIn = async () => {
+    const { data } = await authClient.signIn.social({
+      provider: "discord",
+      callbackURL: "/",
+    });
+
+    await authClient.getSession();
+    console.log(data);
+  };
   return (
     <>
-      <Text className="pb-2 text-center text-xl font-semibold text-white">
-        {user?.name ?? "Not logged in"}
+      <Text className="pb-2 text-center text-xl font-semibold">
+        {session?.user.name ?? "Not logged in"}
       </Text>
       <Button
-        onPress={() => (user ? signOut() : signIn())}
-        title={user ? "Sign Out" : "Sign In With Discord"}
+        onPress={async () => (session ? await signOut() : await handleSignIn())}
+        title={session ? "Sign Out" : "Sign In With Discord"}
         color={"#5B65E9"}
       />
     </>
   );
 }
-
 export default function Index() {
   const queryClient = useQueryClient();
 
