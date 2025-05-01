@@ -9,7 +9,7 @@ import { db } from "@acme/db/client";
 export type AuthInstance = ReturnType<typeof betterAuth>;
 
 export const auth = betterAuth({
-  appName: "expo",
+  appName: "myapp",
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
@@ -24,7 +24,7 @@ export const auth = betterAuth({
   },
   trustedOrigins: [
     ...[env.BETTER_AUTH_URL].map((url) => new URL(url).origin),
-    "expo://",
+    "myapp://",
   ],
   session: {
     expiresIn: 60 * 60 * 24 * 30, // 30 days
