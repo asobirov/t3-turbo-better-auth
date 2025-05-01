@@ -1,13 +1,5 @@
 # create-t3-turbo
 
-> [!NOTE]
->
-> NextAuth setup now works for Expo app!
-
-> [!NOTE]
->
-> OAuth deployments are now working for preview deployments. Read [deployment guide](https://github.com/t3-oss/create-t3-turbo#auth-proxy) and [check out the source](./apps/auth-proxy) to learn more!
-
 ## Installation
 
 > [!NOTE]
