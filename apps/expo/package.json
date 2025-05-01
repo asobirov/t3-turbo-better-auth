@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@acme/auth": "workspace:*",
-    "@better-auth/expo": "^1.2.7",
+    "@better-auth/expo": "catalog:",
     "@expo/metro-config": "^0.20.1",
     "@shopify/flash-list": "1.7.6",
     "@tanstack/react-query": "catalog:",
