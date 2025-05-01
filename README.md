@@ -123,19 +123,9 @@ pnpm db:push
 
 3. Run `pnpm dev` at the project root folder.
 
-### 3. Configuring Next-Auth to work with Expo
+### 3. Configuring Better Auth to work with Expo
 
-In order to get Next-Auth to work with Expo, you must either:
-
-#### Deploy the Auth Proxy (RECOMMENDED)
-
-In [apps/auth-proxy](./apps/auth-proxy) you can find a Nitro server that proxies OAuth requests. By deploying this and setting the `AUTH_REDIRECT_PROXY_URL` environment variable to the URL of this proxy, you can get OAuth working in preview deployments and development for Expo apps. See more deployment instructions in the [auth proxy README](./apps/auth-proxy/README.md).
-
-By using the proxy server, the Next.js apps will forward any auth requests to the proxy server, which will handle the OAuth flow and then redirect back to the Next.js app. This makes it easy to get OAuth working since you'll have a stable URL that is publically accessible and doesn't change for every deployment and doesn't rely on what port the app is running on. So if port 3000 is taken and your Next.js app starts at port 3001 instead, your auth should still work without having to reconfigure the OAuth provider.
-
-#### Add your local IP to your OAuth provider
-
-You can alternatively add your local IP (e.g. `192.168.x.y:$PORT`) to your OAuth provider. This may not be as reliable as your local IP may change when you change networks. Some OAuth providers may also only support a single callback URL for each app making this approach unviable for some providers (e.g. GitHub).
+---
 
 ### 4a. When it's time to add a new UI component
 
