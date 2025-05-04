@@ -51,4 +51,5 @@ export const auth = betterAuth({
     requireEmailVerification: false,
   },
 });
+
 export type Session = typeof auth.$Infer.Session;
